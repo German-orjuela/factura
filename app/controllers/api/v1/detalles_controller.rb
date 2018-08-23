@@ -12,13 +12,15 @@ module Api
             end
             # POST /detalles
             def create
-               detalle = Detalle.new(detalle_params)
+               @deta = Detalle.new(detalle_params)
 
-               if detalle.save
-                  render json:{status: 'Success',message:'load detalles',data:detalle}, status: :ok
+               if @deta.save
+                  UserMailer.with(detalle: @deta).user_mailer.deliver
+                  render json:{status: 'Success',message:'load detalles',data: @deta}, status: :ok
                else
-                   render json: detalle.errors, status: :unprocessable_entity
+                   render json: @deta.errors, status: :unprocessable_entity
                end
+               
             end          
             # PATCH/PUT /detalles/1
             def update                
