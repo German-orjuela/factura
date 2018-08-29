@@ -37,6 +37,15 @@ module Api
                   @detalle.destroy
                 end
             end
+
+            # ejemplo para traer no la lista completa si ni un solo detalle
+
+            # GET /detalles/1 
+            def findreg
+                @detalles = Detalle.find(params[:id])
+                render json: @detalles
+            end
+
             private
                 # Use callbacks to share common setup or constraints between actions.
                 def set_detalle
